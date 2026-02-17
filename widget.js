@@ -1,1 +1,137 @@
+// LeadReady Site AI · Absolute Intelligence™ - SCROLL FIXED VERSION
+// USPTO #63/502,991 · FEDERAL TRADE SECRET · 18 U.S.C. §1832
 
+(function() {
+    // ========== CRITICAL: ENSURE SCROLLING WORKS ==========
+    // Force scrolling to work no matter what
+    if (document.body) {
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        document.documentElement.style.overflowY = 'auto';
+    }
+    
+    // Protection (minimal)
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // YOUR BRAND COLORS
+    const COLORS = {
+        amber: '#f59e0b',
+        navy: '#0f172a',
+        green: '#10b981',
+        charcoal: '#334155',
+        white: '#ffffff',
+        black: '#000000'
+    };
+
+    // SAFE widget HTML - EXPLICITLY allows scrolling
+    const widgetHTML = `
+        <div id="leadready-ai-widget" style="position:fixed; bottom:20px; right:20px; width:380px; max-width:90vw; z-index:999999; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display:none;">
+            <div style="background:${COLORS.white}; border:2px solid ${COLORS.amber}; border-radius:16px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.2); overflow:hidden;">
+                <div style="background:${COLORS.amber}; padding:16px 20px; display:flex; align-items:center; gap:8px; cursor:pointer;" id="leadready-header">
+                    <div style="width:8px; height:8px; background:${COLORS.green}; border-radius:50%; animation:pulse 2s infinite;"></div>
+                    <div style="font-weight:600; font-size:1rem; color:${COLORS.black};">🔷 LeadReady Site AI · Absolute Intelligence™</div>
+                </div>
+                <div id="leadready-messages" style="height:350px; overflow-y:scroll; padding:16px; background:${COLORS.white};">
+                    <div style="background:#f8fafc; border-left:4px solid ${COLORS.amber}; padding:12px; margin-bottom:12px; border-radius:0 12px 12px 12px; color:${COLORS.black};">
+                        Hi! I'm your LeadReady AI assistant. How can I help you today?
+                    </div>
+                </div>
+                <div style="display:flex; padding:12px 16px; border-top:1px solid #e2e8f0; background:${COLORS.white};">
+                    <input type="text" id="leadready-input" placeholder="Type your message..." style="flex:1; padding:12px 16px; border:2px solid #e2e8f0; border-radius:40px; font-size:0.95rem; color:${COLORS.black}; background:${COLORS.white}; outline:none;">
+                    <button id="leadready-send" style="background:${COLORS.green}; color:${COLORS.white}; border:none; border-radius:40px; width:48px; height:48px; margin-left:8px; font-size:1.2rem; cursor:pointer;">●</button>
+                </div>
+                <div style="background:#f8fafc; padding:12px 16px; border-top:1px solid #e2e8f0; font-size:0.7rem; color:${COLORS.charcoal}; text-align:center;">
+                    <div>LeadReady Site AI® · USPTO #63/502,991</div>
+                    <div style="color:#64748b; font-size:0.65rem;">FEDERAL TRADE SECRET · 18 U.S.C. §1832</div>
+                </div>
+            </div>
+            <div id="leadready-collapsed" style="background:${COLORS.amber}; border-radius:60px; padding:12px 24px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.2); display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <div style="width:8px; height:8px; background:${COLORS.green}; border-radius:50%; animation:pulse 2s infinite;"></div>
+                <span style="color:${COLORS.black};">LeadReady Site AI</span>
+            </div>
+        </div>
+        <style>
+            /* CRITICAL: Force scrolling to work everywhere */
+            html, body {
+                overflow: auto !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                height: auto !important;
+                min-height: 100% !important;
+                position: relative !important;
+            }
+            
+            /* Ensure no element can lock scrolling */
+            * {
+                max-height: none !important;
+            }
+            
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+        </style>
+    `;
+
+    // Inject widget safely
+    try {
+        document.body.insertAdjacentHTML('beforeend', widgetHTML);
+        
+        // Double-check scrolling after widget loads
+        setTimeout(function() {
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+        }, 500);
+        
+    } catch (e) {
+        console.log('Widget injection error (non-critical):', e);
+    }
+
+    // Widget toggle
+    const widget = document.getElementById('leadready-ai-widget');
+    const collapsed = document.getElementById('leadready-collapsed');
+    const header = document.getElementById('leadready-header');
+
+    if (collapsed && header && widget) {
+        collapsed.onclick = function() {
+            collapsed.style.display = 'none';
+            widget.style.display = 'block';
+        };
+
+        header.onclick = function() {
+            widget.style.display = 'none';
+            collapsed.style.display = 'flex';
+        };
+    }
+
+    // Simple message handler
+    window.sendMessage = function() {
+        const input = document.getElementById('leadready-input');
+        if (!input) return;
+        const msg = input.value.trim();
+        if (!msg) return;
+        
+        const messages = document.getElementById('leadready-messages');
+        if (!messages) return;
+        
+        messages.innerHTML += `<div style="background:${COLORS.navy}; color:white; padding:12px; margin:8px 0; border-radius:12px 12px 0 12px; text-align:right;">${msg}</div>`;
+        messages.innerHTML += `<div style="background:#f8fafc; border-left:4px solid ${COLORS.amber}; padding:12px; margin:8px 0; border-radius:0 12px 12px 12px; color:black;">Thanks for your message. A human will respond shortly.</div>`;
+        input.value = '';
+    };
+
+    const sendBtn = document.getElementById('leadready-send');
+    const inputField = document.getElementById('leadready-input');
+    
+    if (sendBtn) sendBtn.onclick = window.sendMessage;
+    if (inputField) {
+        inputField.onkeypress = function(e) {
+            if (e.key === 'Enter') window.sendMessage();
+        };
+    }
+})();
