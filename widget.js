@@ -30,7 +30,7 @@
 
     // SAFE widget HTML - EXPLICITLY allows scrolling
     const widgetHTML = `
-        <div id="leadready-ai-widget" style="position:fixed; bottom:20px; right:20px; width:380px; max-width:90vw; z-index:999999; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display:none;">
+        <div id="leadready-ai-widget" style="position:fixed; bottom:20px; left:20px; width:380px; max-width:90vw; z-index:999999; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display:none;">
             <div style="background:${COLORS.white}; border:2px solid ${COLORS.amber}; border-radius:16px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.2); overflow:hidden;">
                 <div style="background:${COLORS.amber}; padding:16px 20px; display:flex; align-items:center; gap:8px; cursor:pointer;" id="leadready-header">
                     <div style="width:8px; height:8px; background:${COLORS.green}; border-radius:50%; animation:pulse 2s infinite;"></div>
